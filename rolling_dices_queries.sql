@@ -1,4 +1,4 @@
-USE rolling_dices
+USE rolling_dices;
 
 /* GET/players  Listar todos los jugadores + ranking */
 SELECT  
@@ -8,7 +8,7 @@ SELECT
 FROM player;
 
 /* GET/games/:{id} Listar todos los juegos de un jugador */
-SELECT DISTINCT
+/* SELECT DISTINCT
     p.name as Player_name,
     g.dice1 as First_dice,
     g.dice2 as Second_dice,
@@ -18,18 +18,18 @@ INNER JOIN player p
     ON p.id = g.id_player
 INNER JOIN ranking r
     ON g.id = r.id_game
-WHERE p.id = 1;
+WHERE p.id = 1; */
 
 /* GET/ranking      Mostrar ranking de jugadores con "SuccessRate" y "SuccessRate_all" */
 
 /* SuccessRate */
 SELECT 
     p.name as Player_name,
-    r.score as Game_result,
-    r.id_game as Game_id,
+    g.score as Game_result,
+    g.id_game as Game_id,
     p.totalGames as Games_played,
     (p.victories * 100 / ( p.totalGames )) as Success_Rate
-FROM ranking r
+FROM game g
 INNER JOIN player p 
     ON p.id = r.id_player
 ORDER BY p.victories DESC;
